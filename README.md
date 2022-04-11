@@ -4,18 +4,18 @@
 редактировать и удалять.
 
 Вид все задачи
-![view](./img/all.jpg)
+![view](./img/all.JPG)
 
 
 Добавление задачи
-![view](./img/add.jpg)
+![view](./img/add.JPG)
 
 Можно отобразить только новые или только выполненные задачи
-![view](./img/todo.jpg)
+![view](./img/todo.JPG)
 
-![view](./img/completed.jpg)
+![view](./img/completed.JPG)
 
 Можно редактировать задачу и отметить ее как выполненную
-![view](./img/edit.jpg)
+![view](./img/edit.JPG)
 
 
