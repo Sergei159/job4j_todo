@@ -54,13 +54,26 @@
                         <span th:text="${#dates.format(item.created, 'dd.MM.yyyy')}"/>
                     </p>
                     <p class="card-text" th:text="${item.description}"/>
-                    <form  th:action="@{|/completeItem/${item.id}|}" method="GET">
-                        <span th:if="${!item.isDone}">
-                            <button type="submit" class="btn btn-outline-success">Завершить</button>
-                        </span>
-                        <button type="submit" class="btn btn-outline-warning" th:formaction="@{|/updateItem/${item.id}|}">Изменить</button>
-                        <button type="submit" class="btn btn-outline-danger" th:formaction="@{|/deleteItem/${item.id}|}">Удалить</button>
-                    </form>
+                    <span th:if="${!item.isDone}">
+                        <div class="col-sm ">
+                            <a class="btn btn-success btn-sm" th:href="@{|/completeItem/${item.id}|}">
+                                <i class="fa fa-edit"></i> Выполнить</a>
+                            <a class="btn btn-outline-warning btn-sm " th:href="@{|/updateItem/${item.id}|}">
+                                <i class="fa fa-edit"></i> Изменить</a>
+                            <a class="btn btn-outline-danger btn-sm" th:href="@{|/deleteItem/${item.id}|}">
+                                <i class="fa fa-edit"></i> Удалить</a>
+                        </div>
+                    </span>
+                    <span th:if="${item.isDone}">
+                        <div class="col-sm ">
+                            <a class="btn btn-outline-info btn-sm" th:href="@{|/resumeItem/${item.id}|}">
+                                <i class="fa fa-edit"></i> Возобновить</a>
+                            <a class="btn btn-outline-warning btn-sm " th:href="@{|/updateItem/${item.id}|}">
+                                <i class="fa fa-edit"></i> Изменить</a>
+                            <a class="btn btn-outline-danger btn-sm" th:href="@{|/deleteItem/${item.id}|}">
+                                <i class="fa fa-edit"></i> Удалить</a>
+                        </div>
+                    </span>
                 </div>
             </div>
         </div>
