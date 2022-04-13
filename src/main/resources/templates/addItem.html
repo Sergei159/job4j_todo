@@ -28,7 +28,16 @@
                 <a class="nav-item nav-link " th:href="@{/items}">Все <span class="sr-only">(current)</span></a>
                 <a class="nav-item nav-link" th:href="@{/completed}">Выполненные</a>
                 <a class="nav-item nav-link" th:href="@{/itemsToDo}">Новые</a>
-                <a class="nav-item nav-link active" th:href="@{/addItem}">Добавить</a>
+                <a th:if="${user.name != 'Гость'}" class="nav-item nav-link active" th:href="@{/addItem}">Добавить</a>
+                <a class="nav-item nav-link" th:if="${user.name == 'Гость'}" th:href="@{/loginPage}">
+                    <span th:text="${user.name}"></span>
+                    <span> | Войти</span>
+                </a>
+                <a class="nav-item nav-link" th:if="${user.name != 'Гость'}" th:href="@{/logout}">
+                    <span th:text="${user.name}"></span>
+                    <span> | Выйти</span>
+                </a>
+                <a th:if="${user.name == 'Гость'}" class="nav-item nav-link" th:href="@{/addUser}">Регистрация</a>
             </div>
         </div>
     </nav>

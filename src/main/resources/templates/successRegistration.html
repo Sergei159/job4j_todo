@@ -35,55 +35,19 @@
                 <a class="nav-item nav-link" th:href="@{/completed}">Выполненные</a>
                 <a class="nav-item nav-link" th:href="@{/itemsToDo}">Новые</a>
                 <a th:if="${user.name != 'Гость'}" class="nav-item nav-link" th:href="@{/addItem}">Добавить</a>
-                <a class="nav-item nav-link" th:if="${user.name == 'Гость'}" th:href="@{/loginPage}">
-                    <span th:text="${user.name}"></span>
-                    <span> | Войти</span>
-                </a>
-                <a class="nav-item nav-link" th:if="${user.name != 'Гость'}" th:href="@{/logout}">
-                    <span th:text="${user.name}"></span>
-                    <span> | Выйти</span>
-                </a>
-                <a th:if="${user.name == 'Гость'}" class="nav-item nav-link" th:href="@{/addUser}">Регистрация</a>
             </div>
         </div>
     </nav>
-    <div class="row" th:each="item : ${items}">
-
-        <div class="col">
-            <div class="shadow card">
-                <div class="card-body">
-                    <div class="row">
-                        <div class="col-12 col-sm-6 col-md-8">
-                            <h5 class="card-title">
-                                <a class="text-dark" th:href="@{|/itemInfo/${item.id}|}" th:text="${item.name}"/>
-                            </h5>
-                            <p class="card-subtitle text-muted">
-                                Создано
-                                <span th:text="${#dates.format(item.created, 'dd.MM.yyyy')}"/>
-                            </p>
-                            <p class="card-subtitle text-muted">
-                                Автор
-                                <span th:text="${item.user.getName}"/>
-                            </p>
-                            <div class="col-1 col-md-4 text-left ">
-                                <a class="btn btn-warning btn-sm" th:href="@{|/itemInfo/${item.id}|}">
-                                    <i class="fa fa-edit"></i> Редактировать</a>
-                            </div>
-                        </div>
-                        <div class="col-6 col-md-4 text-right align-self-center">
-                            <span th:if="${!item.isDone}">
-                                <span class="badge badge-warning">В процессе</span>
-                            </span>
-                            <span th:if="${item.isDone}">
-                                <span class="badge badge-success">Выполнено</span>
-                            </span>
-                        </div>
-                    </div>
-                </div>
+    <div class="row pt-3">
+        <div class="card" style="width: 100%">
+            <div class="alert alert-success" role="alert">
+                Регистрация успешно завершена!
+            </div>
+            <div class="col-sm ">
+                <a class="btn btn-primary" th:href="@{/items}">На главную</a>
             </div>
         </div>
     </div>
-</div>
 
 </body>
 </html>

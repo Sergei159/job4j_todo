@@ -1,9 +1,9 @@
 package ru.job4j.todo.persistence;
 
+import net.jcip.annotations.ThreadSafe;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
-import org.hibernate.query.Query;
 import org.springframework.stereotype.Repository;
 import ru.job4j.todo.model.Item;
 
@@ -12,8 +12,9 @@ import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.function.Function;
 
+@ThreadSafe
 @Repository
-public class ItemStore {
+public class ItemStore implements Store {
 
     private final SessionFactory sf;
 
@@ -23,20 +24,6 @@ public class ItemStore {
         this.sf = sf;
     }
 
-    private <T> T transaction(final Function<Session, T> command, SessionFactory sf) {
-        final Session session = sf.openSession();
-        final Transaction transaction = session.beginTransaction();
-        try {
-            T result = command.apply(session);
-            transaction.commit();
-            return result;
-        } catch (final Exception e) {
-            session.getTransaction().rollback();
-            throw e;
-        } finally {
-            session.close();
-        }
-    }
 
     public  List<Item> findAll() {
         return transaction(session -> session.createQuery(

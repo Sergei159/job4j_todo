@@ -10,6 +10,7 @@ CREATE TABLE IF NOT EXISTS items
 
 CREATE TABLE IF NOT EXISTS users (
 id serial primary key,
+name text,
 email text,
 password text,
 CONSTRAINT email_unique UNIQUE (email)

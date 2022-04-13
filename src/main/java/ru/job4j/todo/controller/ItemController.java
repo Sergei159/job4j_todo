@@ -8,8 +8,10 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import ru.job4j.todo.model.Item;
+import ru.job4j.todo.model.User;
 import ru.job4j.todo.service.ItemService;
 
+import javax.servlet.http.HttpSession;
 import java.util.Date;
 
 @ThreadSafe
@@ -23,37 +25,75 @@ public class ItemController {
     }
 
     @GetMapping("/items")
-    public String items(Model model) {
+    public String items(Model model, HttpSession session) {
+        User user = (User) session.getAttribute("user");
+        if (user == null) {
+            user = new User();
+            user.setName("Гость");
+        }
+        model.addAttribute("user", user);
         model.addAttribute("items", itemService.findAll());
         return "items";
     }
 
     @GetMapping("/completed")
-    public String completed(Model model) {
+    public String completed(Model model, HttpSession session) {
+        User user = (User) session.getAttribute("user");
+        if (user == null) {
+            user = new User();
+            user.setName("Гость");
+        }
+        model.addAttribute("user", user);
         model.addAttribute("items", itemService.findCompleted());
         return "items";
     }
 
     @GetMapping("/itemsToDo")
-    public String itemsToDo(Model model) {
+    public String itemsToDo(Model model, HttpSession session) {
+        User user = (User) session.getAttribute("user");
+        if (user == null) {
+            user = new User();
+            user.setName("Гость");
+        }
+        model.addAttribute("user", user);
         model.addAttribute("items", itemService.findTodo());
         return "items";
     }
 
     @GetMapping("/addItem")
-    public String addItem(Model model) {
+    public String addItem(Model model, HttpSession session) {
         model.addAttribute("items", itemService.findAll());
+        User user = (User) session.getAttribute("user");
+        if (user == null) {
+            user = new User();
+            user.setName("Гость");
+        }
+        model.addAttribute("user", user);
         return "addItem";
     }
 
     @GetMapping("/itemInfo/{itemId}")
-    public String itemInfo(Model model, @PathVariable("itemId") int id) {
+    public String itemInfo(Model model, @PathVariable("itemId") int id, HttpSession session) {
+        model.addAttribute("items", itemService.findAll());
+        User user = (User) session.getAttribute("user");
+        if (user == null) {
+            user = new User();
+            user.setName("Гость");
+        }
+        model.addAttribute("user", user);
         model.addAttribute("item", itemService.findById(id));
         return "itemInfo";
     }
 
     @GetMapping("/updateItem/{itemId}")
-    public String updateItem(Model model, @PathVariable("itemId") int id) {
+    public String updateItem(Model model, @PathVariable("itemId") int id, HttpSession session) {
+        model.addAttribute("items", itemService.findAll());
+        User user = (User) session.getAttribute("user");
+        if (user == null) {
+            user = new User();
+            user.setName("Гость");
+        }
+        model.addAttribute("user", user);
         model.addAttribute("item", itemService.findById(id));
         return "updateItem";
     }
@@ -77,15 +117,18 @@ public class ItemController {
     }
 
     @PostMapping("/createItem")
-    public String createItem(@ModelAttribute Item item) {
+    public String createItem(@ModelAttribute Item item, HttpSession session) {
         item.setCreated(new Date(System.currentTimeMillis()));
+        item.setUser((User) session.getAttribute("user"));
         itemService.create(item);
         return "redirect:/items";
     }
 
     @PostMapping("/updateItem")
     public String updateItem(@ModelAttribute Item item) {
-        item.setCreated(itemService.findById(item.getId()).getCreated());
+        Item tempItem = itemService.findById(item.getId());
+        item.setCreated(tempItem.getCreated());
+        item.setUser(tempItem.getUser());
         itemService.update(item);
         return "redirect:/items";
     }

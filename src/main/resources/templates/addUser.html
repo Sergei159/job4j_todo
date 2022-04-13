@@ -47,49 +47,29 @@
             </div>
         </div>
     </nav>
-    <div class="row">
-        <div class="col">
-            <div class="shadow card">
-                <div class="card-body">
-                    <span th:if="${!item.isDone}">
-                                <span class="badge badge-warning">В процессе</span>
-                    </span>
-                    <span th:if="${item.isDone}">
-                                <span class="badge badge-success">Выполнено</span>
-                    </span>
-                    <h5 class="card-title" th:text="${item.name}"/>
-                    <p class="card-text" th:text="${item.description}"/>
-                    <p class="card-subtitle text-muted">
-                        Создано
-                        <span th:text="${#dates.format(item.created, 'dd.MM.yyyy')}"/>
-                    </p>
-                    <span th:if="${user.name != 'Гость' and user.name == item.user.getName}">
-                        <span th:if="${!item.isDone}">
-                            <div class="col-sm ">
-                                <a class="btn btn-success btn-sm" th:href="@{|/completeItem/${item.id}|}">
-                                    <i class="fa fa-edit"></i> Выполнить</a>
-                                <a class="btn btn-outline-warning btn-sm " th:href="@{|/updateItem/${item.id}|}">
-                                    <i class="fa fa-edit"></i> Изменить</a>
-                                <a class="btn btn-outline-danger btn-sm" th:href="@{|/deleteItem/${item.id}|}">
-                                    <i class="fa fa-edit"></i> Удалить</a>
-                            </div>
-                        </span>
-                        <span th:if="${item.isDone}">
-                            <div class="col-sm ">
-                                <a class="btn btn-outline-info btn-sm" th:href="@{|/resumeItem/${item.id}|}">
-                                    <i class="fa fa-edit"></i> Возобновить</a>
-                                <a class="btn btn-outline-warning btn-sm " th:href="@{|/updateItem/${item.id}|}">
-                                    <i class="fa fa-edit"></i> Изменить</a>
-                                <a class="btn btn-outline-danger btn-sm" th:href="@{|/deleteItem/${item.id}|}">
-                                    <i class="fa fa-edit"></i> Удалить</a>
-                            </div>
-                        </span>
-                    </span>
-                </div>
+<div class="row pt-3">
+    <div class="card" style="width: 100%">
+        Новый пользователь
+        <div class="card-body">
+            <div th:if="${fail}" class="alert alert-danger" role="alert">
+                Пользователь с такой почтой уже существует!
             </div>
+            <form th:action="@{/registrationUser}" method="POST">
+                <div class="form-group">
+                    <input type="hidden" name="id" value="0"/>
+                    <label for="name">Имя</label>
+                    <input type="text" class="form-control" name="name" id="name">
+                    <label for="email">Почта</label>
+                    <input type="text" class="form-control" id="email" name="email" >
+                    <label for="password">Пароль</label>
+                    <input type="text" class="form-control" id="password" name="password" >
+                </div>
+                <button type="submit" class="btn btn-info mt-3">Зарегистрировать</button>
+            </form>
         </div>
     </div>
 </div>
-
+</div>
 </body>
 </html>
+

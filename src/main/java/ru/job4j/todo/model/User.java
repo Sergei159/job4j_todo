@@ -12,6 +12,8 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
+    private String name;
+
     private String email;
 
     private String password;
@@ -22,6 +24,14 @@ public class User {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getEmail() {
@@ -56,4 +66,6 @@ public class User {
     public int hashCode() {
         return Objects.hash(id, email, password);
     }
+
+
 }
