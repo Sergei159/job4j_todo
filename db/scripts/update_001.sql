@@ -1,4 +1,4 @@
-CREATE TABLE IF NOT EXISTS items
+CREATE TABLE IF NOT EXISTS ITEMS
 (
     id SERIAL PRIMARY KEY,
     name varchar(100),
@@ -8,7 +8,7 @@ CREATE TABLE IF NOT EXISTS items
     user_id int not null references users(id)
 );
 
-CREATE TABLE IF NOT EXISTS users (
+CREATE TABLE IF NOT EXISTS USERS (
 id serial primary key,
 name varchar(100),
 email varchar(50),
