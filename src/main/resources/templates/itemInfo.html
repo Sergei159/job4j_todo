@@ -63,7 +63,7 @@
                         Создано
                         <span th:text="${#dates.format(item.created, 'dd.MM.yyyy')}"/>
                     </p>
-                    <span th:if="${user.name != 'Гость' and user.name == item.user.getName}">
+                    <span th:if="${user.name != 'Гость' and user.email == item.user.email}">
                         <span th:if="${!item.isDone}">
                             <div class="col-sm ">
                                 <a class="btn btn-success btn-sm" th:href="@{|/completeItem/${item.id}|}">
